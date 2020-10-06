@@ -18,7 +18,7 @@ import { assetRecordToAsset, stringifyAsset } from "~Generic/lib/stellar"
 import { createTransaction } from "~Generic/lib/transaction"
 import { CompactDialogTransition } from "~App/theme"
 import DialogBody from "~Layout/components/DialogBody"
-import { AccountName } from "~Generic/components/Fetchers"
+import { AccountName } from "~Generic/components/AccountName"
 import { SearchField } from "~Generic/components/FormFields"
 import { VerticalLayout } from "~Layout/components/Box"
 import { FixedSizeList } from "~Generic/components/VirtualList"
@@ -145,7 +145,7 @@ function createSearchResultRow(
         {item.type === "issuer" ? (
           <ListItem key={item.issuer} className={classes.issuerItem}>
             <ListItemText
-              primary={<AccountName publicKey={item.issuer} testnet={account.testnet} />}
+              primary={<AccountName address={item.issuer} testnet={account.testnet} />}
               secondary={
                 assetsByIssuer[item.issuer].length === 1
                   ? t("account.add-asset.item.issuer.secondary.one-asset")
