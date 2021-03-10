@@ -77,7 +77,11 @@ function ManageSignersDialogContent(props: Props) {
   const allDefaultKeyweights = updatedSigners.every(signer => signer.weight === 1)
 
   const proceedToSigners = React.useCallback(() => switchToStep(Step.Signers), [switchToStep])
-  const switchBackToPresets = React.useCallback(() => switchToStep(Step.Presets), [switchToStep])
+  const switchBackToPresets = React.useCallback(() => {
+    // reset editor state
+    setEditorState(prev => ({ ...prev, signersToRemove: [], signersToAdd: [] }))
+    switchToStep(Step.Presets)
+  }, [switchToStep, setEditorState])
 
   const submit = async () => {
     try {
@@ -100,6 +104,8 @@ function ManageSignersDialogContent(props: Props) {
       trackError(error)
     }
   }
+
+  console.log("editorState", editorState)
 
   // disable submit if no changes were made
   const disabled = React.useMemo(() => {
